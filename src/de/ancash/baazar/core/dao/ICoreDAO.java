@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import de.ancash.bazaar.core.Enquiry.EnquiryType;
-import de.ancash.bazaar.core.SellOffer;
 import de.ancash.datastructures.tuples.Triplet;
 
 public interface ICoreDAO {
