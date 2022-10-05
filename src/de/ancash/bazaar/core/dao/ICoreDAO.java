@@ -1,8 +1,9 @@
-package de.ancash.baazar.core.dao;
+package de.ancash.bazaar.core.dao;
 
 import java.util.HashMap;
 import java.util.UUID;
 
+import de.ancash.bazaar.core.dao.ICoreDAO;
 import de.ancash.bazaar.core.Enquiry.EnquiryType;
 import de.ancash.datastructures.tuples.Triplet;
 
@@ -10,8 +11,7 @@ public interface ICoreDAO {
 
 	/**
 	 * Returns the {@link ITransactionDAO} used for transactions (e.g creating
-	 * {@link BuyOrder}/{@link SellOffer}, instant transactions and claiming
-	 * enquiries)
+	 * BuyOrders/SellOffers, instant transactions and claiming Enquiries)
 	 * 
 	 * @return
 	 */
@@ -132,23 +132,25 @@ public interface ICoreDAO {
 	 * 
 	 * @param uuid - players uuid
 	 * @param type - type
-	 * @return
+	 * @return map
 	 */
 	public HashMap<Long, HashMap<String, Number>> getEnquiriesAsMap(UUID uuid, EnquiryType type);
 
 	/**
-	 * Returns the sum of the content of all Enquiries in the specified category.
+	 * Returns the sum of the content of all Enquiries in the specified category. If
+	 * subsub <= 0, the sum of all Enquiries in the sub category will be returned
 	 * 
 	 * @param type
 	 * @param cat
 	 * @param sub
 	 * @param subsub
-	 * @return
+	 * @return sum
 	 */
 	public int sumEnquiries(EnquiryType type, int cat, int sub, int subsub);
 
 	/**
-	 * Returns the sum of all Enquiries in the specified category.
+	 * Returns the sum of all Enquiries in the specified category. If subsub <= 0,
+	 * the count of all Enquiries in the sub category will be returned
 	 * 
 	 * @param type
 	 * @param cat
@@ -159,10 +161,34 @@ public interface ICoreDAO {
 	public int countEnquiries(EnquiryType type, int cat, int sub, int subsub);
 
 	/**
+	 * Returns the sum of the content of all Enquiries in the specified category. If
+	 * subsub <= 0, the sum of all Enquiries in the sub category will be returned
+	 * 
+	 * @param type
+	 * @param cat
+	 * @param sub
+	 * @param subsub
+	 * @return sum
+	 */
+	public int lazySumEnquiries(EnquiryType type, int cat, int sub, int subsub);
+
+	/**
+	 * Returns the sum of all Enquiries in the specified category. If subsub <= 0,
+	 * the count of all Enquiries in the sub category will be returned
+	 * 
+	 * @param type
+	 * @param cat
+	 * @param sub
+	 * @param subsub
+	 * @return count
+	 */
+	public int lazyCountEnquiries(EnquiryType type, int cat, int sub, int subsub);
+
+	/**
 	 * Returns the numbe of Enquiries owned by player
 	 * 
 	 * @param uuid - players uuid
-	 * @return
+	 * @return count
 	 */
 	public int countEnquiries(UUID uuid);
 
@@ -189,7 +215,7 @@ public interface ICoreDAO {
 	 * Returns the numbere of claimable items
 	 * 
 	 * @param uuid - players uuid
-	 * @return
+	 * @return claimable
 	 */
 	public int getClaimableItems(UUID uuid);
 
@@ -200,7 +226,7 @@ public interface ICoreDAO {
 	 * @param uuid
 	 * @param id
 	 * @param type
-	 * @return
+	 * @return claimable
 	 */
 	public int getClaimable(UUID uuid, long id, EnquiryType type);
 
@@ -226,7 +252,7 @@ public interface ICoreDAO {
 	 * {@link ICoreDAO#getRemnants(UUID, long)}
 	 * 
 	 * @param id
-	 * @return
+	 * @return remnants
 	 */
 	public double getRemnants(UUID id);
 
@@ -237,7 +263,7 @@ public interface ICoreDAO {
 	 * 
 	 * @param uuid
 	 * @param id
-	 * @return
+	 * @return remnants
 	 */
 	public double getRemnants(UUID uuid, long id);
 }

@@ -1,4 +1,4 @@
-package de.ancash.baazar.core.dao;
+package de.ancash.bazaar.core.dao;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -21,7 +21,7 @@ public interface IPlaceholderDAO {
 
 	public HashMap<String, String> getBuyInstantlyPlaceholder(int cat, int sub, int subsub);
 
-	public HashMap<String, String> getManageEnquiriesPlaceholder(UUID id, int newCat);
+	public HashMap<String, String> getManageEnquiriesPlaceholderMain(UUID id);
 
 	public HashMap<String, String> getCancelEnquiriesPlaceholder(UUID player, long id, EnquiryType type);
 

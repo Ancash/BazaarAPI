@@ -1,4 +1,4 @@
-package de.ancash.baazar.core.dao;
+package de.ancash.bazaar.core.dao;
 
 import java.util.UUID;
 
