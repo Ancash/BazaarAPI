@@ -3,6 +3,10 @@ package de.ancash.bazaar.core.dao;
 import de.ancash.bazaar.core.record.Record;
 import de.ancash.bazaar.core.record.Record.RecordDataType;
 
+/**
+ * Provides access to all recorded transactions and allows to manually record a
+ * transaction.
+ */
 public interface IStatisticsDAO {
 
 	public Record[] getRecordsOfLastHours(int hours);
