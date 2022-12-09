@@ -17,6 +17,13 @@ public interface ICoreDAO {
 	 */
 	public ITransactionDAO transactionDAO();
 
+	/**
+	 * Returns the {@link IStatisticsDAO} used for statistics
+	 * 
+	 * @return
+	 */
+	public IStatisticsDAO statisticsDAO();
+
 	public IPlaceholderDAO placeholderDAO();
 
 	/**
