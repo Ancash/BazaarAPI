@@ -19,6 +19,7 @@ import de.ancash.bazaar.core.DefaultCategory;
 import de.ancash.bazaar.core.dao.ICoreDAO;
 import de.ancash.bazaar.core.dao.IStatisticsDAO;
 import de.ancash.libs.org.simpleyaml.configuration.file.YamlFile;
+import de.ancash.misc.MathsUtils;
 
 /**
  * A Record represents all transactions in a time frame. There are yearly,
@@ -68,7 +69,7 @@ public class Record implements Serializable {
 		saves.put(RecordDataType.SELL_INSTANTLY, Collections.synchronizedList(new ArrayList<>()));
 		saves.put(RecordDataType.SELL_OFFER, Collections.synchronizedList(new ArrayList<>()));
 	}
-
+	
 	@SuppressWarnings("nls")
 	@Override
 	public String toString() {
@@ -229,7 +230,7 @@ public class Record implements Serializable {
 			for (int b = 0; b < arr[a].length; b++)
 				for (int c = 0; c < arr[a][b].length; c++)
 					cnt += arr[a][b][c];
-		return cnt;
+		return MathsUtils.round(cnt, 2);
 	}
 
 	public int getSoldInstantlySum() {
@@ -248,14 +249,16 @@ public class Record implements Serializable {
 	public double getSoldInstantlyMoneySum() {
 		if (childRecords.isEmpty())
 			return sumDoubleArr(soldInstaMoney);
-		return childRecords.values().stream().map(Record::getSoldInstantlyMoneySum).mapToDouble(Double::valueOf).sum();
+		return MathsUtils.round(
+				childRecords.values().stream().map(Record::getSoldInstantlyMoneySum).mapToDouble(Double::valueOf).sum(),
+				2);
 	}
 
 	public double getSoldInstantlyMoney(int cat, int sub, int subsub) {
 		if (childRecords.isEmpty())
-			return soldInstaMoney[cat - 1][sub - 1][subsub - 1];
-		return childRecords.values().stream().map(c -> c.getSoldInstantlyMoney(cat, sub, subsub))
-				.mapToDouble(Double::valueOf).sum();
+			return MathsUtils.round(soldInstaMoney[cat - 1][sub - 1][subsub - 1], 2);
+		return MathsUtils.round(childRecords.values().stream().map(c -> c.getSoldInstantlyMoney(cat, sub, subsub))
+				.mapToDouble(Double::valueOf).sum(), 2);
 	}
 
 	public int getBoughtInstantlySum() {
@@ -274,15 +277,15 @@ public class Record implements Serializable {
 	public double getBoughtInstantlyMoneySum() {
 		if (childRecords.isEmpty())
 			return sumDoubleArr(boughtInstaMoney);
-		return childRecords.values().stream().map(Record::getBoughtInstantlyMoneySum).mapToDouble(Double::valueOf)
-				.sum();
+		return MathsUtils.round(childRecords.values().stream().map(Record::getBoughtInstantlyMoneySum)
+				.mapToDouble(Double::valueOf).sum(), 2);
 	}
 
 	public double getBoughtInstantlyMoney(int cat, int sub, int subsub) {
 		if (childRecords.isEmpty())
-			return boughtInstaMoney[cat - 1][sub - 1][subsub - 1];
-		return childRecords.values().stream().map(c -> c.getBoughtInstantlyMoney(cat, sub, subsub))
-				.mapToDouble(Double::valueOf).sum();
+			return MathsUtils.round(boughtInstaMoney[cat - 1][sub - 1][subsub - 1], 2);
+		return MathsUtils.round(childRecords.values().stream().map(c -> c.getBoughtInstantlyMoney(cat, sub, subsub))
+				.mapToDouble(Double::valueOf).sum(), 2);
 	}
 
 	public int getSellOffersSum() {
@@ -301,14 +304,16 @@ public class Record implements Serializable {
 	public double getSellOffersMoneySum() {
 		if (childRecords.isEmpty())
 			return sumDoubleArr(sellOffersMoney);
-		return childRecords.values().stream().map(Record::getSellOffersMoneySum).mapToDouble(Double::valueOf).sum();
+		return MathsUtils.round(
+				childRecords.values().stream().map(Record::getSellOffersMoneySum).mapToDouble(Double::valueOf).sum(),
+				2);
 	}
 
 	public double getSellOffersMoney(int cat, int sub, int subsub) {
 		if (childRecords.isEmpty())
-			return sellOffersMoney[cat - 1][sub - 1][subsub - 1];
-		return childRecords.values().stream().map(c -> c.getSellOffersMoney(cat, sub, subsub))
-				.mapToDouble(Double::valueOf).sum();
+			return MathsUtils.round(sellOffersMoney[cat - 1][sub - 1][subsub - 1], 2);
+		return MathsUtils.round(childRecords.values().stream().map(c -> c.getSellOffersMoney(cat, sub, subsub))
+				.mapToDouble(Double::valueOf).sum(), 2);
 	}
 
 	public int getBuyOrdersSum() {
@@ -327,14 +332,15 @@ public class Record implements Serializable {
 	public double getBuyOrdersMoneySum() {
 		if (childRecords.isEmpty())
 			return sumDoubleArr(buyOrdersMoney);
-		return childRecords.values().stream().map(Record::getBuyOrdersMoneySum).mapToDouble(Double::valueOf).sum();
+		return MathsUtils.round(
+				childRecords.values().stream().map(Record::getBuyOrdersMoneySum).mapToDouble(Double::valueOf).sum(), 2);
 	}
 
 	public double getBuyOrdersMoney(int cat, int sub, int subsub) {
 		if (childRecords.isEmpty())
-			return buyOrdersMoney[cat - 1][sub - 1][subsub - 1];
-		return childRecords.values().stream().map(c -> c.getBuyOrdersMoney(cat, sub, subsub))
-				.mapToDouble(Double::valueOf).sum();
+			return MathsUtils.round(buyOrdersMoney[cat - 1][sub - 1][subsub - 1], 2);
+		return MathsUtils.round(childRecords.values().stream().map(c -> c.getBuyOrdersMoney(cat, sub, subsub))
+				.mapToDouble(Double::valueOf).sum(), 2);
 	}
 
 	public enum RecordDataType {

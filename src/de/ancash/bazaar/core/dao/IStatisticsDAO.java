@@ -1,5 +1,7 @@
 package de.ancash.bazaar.core.dao;
 
+import java.util.ArrayList;
+
 import de.ancash.bazaar.core.record.Record;
 import de.ancash.bazaar.core.record.Record.RecordDataType;
 
@@ -9,6 +11,14 @@ import de.ancash.bazaar.core.record.Record.RecordDataType;
  */
 public interface IStatisticsDAO {
 
+	public ArrayList<String> getStatisticsOfLastHours(int n, RecordDataType type, boolean money, int yScale);
+
+	public ArrayList<String> getStatisticsOfLastDays(int n, RecordDataType type, boolean money, int yScale);
+
+	public ArrayList<String> getStatisticsOfLastMonths(int n, RecordDataType type, boolean money, int yScale);
+
+	public ArrayList<String> getStatisticsOfLastYears(int n, RecordDataType type, boolean money, int yScale);
+	
 	public Record[] getRecordsOfLastHours(int hours);
 
 	public Record[] getRecordsOfLastDays(int days);
