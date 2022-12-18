@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import de.ancash.bazaar.core.DefaultCategory;
@@ -69,7 +68,7 @@ public class Record implements Serializable {
 		saves.put(RecordDataType.SELL_INSTANTLY, Collections.synchronizedList(new ArrayList<>()));
 		saves.put(RecordDataType.SELL_OFFER, Collections.synchronizedList(new ArrayList<>()));
 	}
-	
+
 	@SuppressWarnings("nls")
 	@Override
 	public String toString() {
@@ -162,10 +161,10 @@ public class Record implements Serializable {
 	protected void add(RecordDataType type, int amount, double unitPrice, int[] cat, long millis) {
 		if (childRecords.isEmpty()) {
 			synchronized (this) {
-				long temp = millis - TimeUnit.HOURS.toMillis(TimeUnit.MILLISECONDS.toHours(millis));
+				long temp = millis - java.util.concurrent.TimeUnit.HOURS.toMillis(java.util.concurrent.TimeUnit.MILLISECONDS.toHours(millis));
 				if (ids.contains(temp)) {
 					int cnt = 0;
-					while (ids.contains(temp) || (temp <= 0 || temp >= TimeUnit.HOURS.toMillis(1))) {
+					while (ids.contains(temp) || (temp <= 0 || temp >= java.util.concurrent.TimeUnit.HOURS.toMillis(1))) {
 						cnt++;
 						if (cnt % 2 == 0)
 							temp -= cnt;
@@ -344,8 +343,10 @@ public class Record implements Serializable {
 	}
 
 	public enum RecordDataType {
-
 		BUY_INSTANTLY, SELL_INSTANTLY, BUY_ORDER, SELL_OFFER;
+	}
 
+	public enum TimeUnit {
+		HOUR, DAY, MONTH, YEAR;
 	}
 }
