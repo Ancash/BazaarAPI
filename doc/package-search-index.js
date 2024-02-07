@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"de.ancash.bazaar.core.dao"},{"l":"de.ancash.bazaar.event"}]
